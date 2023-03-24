@@ -1,6 +1,6 @@
 package fileutils
 
-// nolint gosec
+//nolint:gosec
 import (
 	"crypto/md5"
 	"crypto/sha256"
@@ -21,7 +21,6 @@ const (
 )
 
 func Find(folderPath, ext string) ([]string, error) {
-
 	var funcName string = "Find"
 
 	var files []string
@@ -36,7 +35,7 @@ func Find(folderPath, ext string) ([]string, error) {
 
 	sym, err := IsSymlink(folderPath)
 	if err != nil {
-		return []string{}, fmt.Errorf("%v.%v: error checking symlink [%v], [%v]", packageName, funcName, folderPath, err)
+		return []string{}, fmt.Errorf("%v.%v: error checking symlink [%v], [%v]", packageName, funcName, folderPath, err.Error())
 	}
 	if sym {
 		return []string{}, fmt.Errorf("%v.%v: target is a symlink [%v]", packageName, funcName, folderPath)
@@ -53,14 +52,13 @@ func Find(folderPath, ext string) ([]string, error) {
 	})
 
 	if err != nil {
-		return []string{}, fmt.Errorf("%v.%v: error walking target [%v], [%v]", packageName, funcName, folderPath, err)
+		return []string{}, fmt.Errorf("%v.%v: error walking target [%v], [%v]", packageName, funcName, folderPath, err.Error())
 	}
 
 	return files, nil
 }
 
 func Folders(folderPath string) ([]string, error) {
-
 	var funcName string = "Folders"
 
 	if !FolderExists(folderPath) {
@@ -85,14 +83,13 @@ func Folders(folderPath string) ([]string, error) {
 	})
 
 	if err != nil {
-		return []string{}, fmt.Errorf("%v.%v: error walking target [%v], [%v]", packageName, funcName, folderPath, err)
+		return []string{}, fmt.Errorf("%v.%v: error walking target [%v], [%v]", packageName, funcName, folderPath, err.Error())
 	}
 
 	return folders, nil
 }
 
 func EmptyFolder(folderPath string) error {
-
 	var funcName string = "EmptyFolder"
 
 	if !FolderExists(folderPath) {
@@ -101,7 +98,7 @@ func EmptyFolder(folderPath string) error {
 
 	dir, err := ioutil.ReadDir(folderPath)
 	if err != nil {
-		return fmt.Errorf("%v.%v: error reading target [%v], [%v]", packageName, funcName, folderPath, err)
+		return fmt.Errorf("%v.%v: error reading target [%v], [%v]", packageName, funcName, folderPath, err.Error())
 	}
 
 	for _, d := range dir {
@@ -112,7 +109,6 @@ func EmptyFolder(folderPath string) error {
 }
 
 func FolderIsWriteable(folderPath string) (bool, error) {
-
 	var funcName string = "FolderIsWritable"
 
 	if !FolderExists(folderPath) {
@@ -154,19 +150,17 @@ func FileExists(fileName string) bool {
 }
 
 func IsSymlink(fileName string) (bool, error) {
-
 	var funcName string = "IsSymlink"
 
 	fi, err := os.Lstat(fileName)
 	if err != nil {
-		return false, fmt.Errorf("%v.%v: error checking file info [%v], [%v]", packageName, funcName, fileName, err)
+		return false, fmt.Errorf("%v.%v: error checking file info [%v], [%v]", packageName, funcName, fileName, err.Error())
 	}
 
 	return fi.Mode()&os.ModeSymlink == os.ModeSymlink, nil
 }
 
 func MkDir(dir string) error {
-
 	var funcName string = "MkDir"
 
 	var sym bool
@@ -175,7 +169,7 @@ func MkDir(dir string) error {
 	if FileExists(dir) {
 		sym, err = IsSymlink(dir)
 		if err != nil {
-			return fmt.Errorf("%v.%v: error checking if symlink [%v], [%v]", packageName, funcName, dir, err)
+			return fmt.Errorf("%v.%v: error checking if symlink [%v], [%v]", packageName, funcName, dir, err.Error())
 		}
 	}
 
@@ -187,7 +181,6 @@ func MkDir(dir string) error {
 }
 
 func MkFile(fileName string) error {
-
 	var funcName string = "MkFile"
 
 	if FileExists(fileName) {
@@ -212,85 +205,79 @@ func FileIsWriteable(fileName string) bool {
 }
 
 func GetFile(fileName string) (*os.File, error) {
-
 	var funcName string = "GetFile"
 
 	f, err := os.OpenFile(fileName, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0655)
 	if err != nil {
-		return nil, fmt.Errorf("%v.%v: error opening file [%v], [%v]", packageName, funcName, fileName, err)
+		return nil, fmt.Errorf("%v.%v: error opening file [%v], [%v]", packageName, funcName, fileName, err.Error())
 	}
 
 	return f, nil
 }
 
 func WriteFile(fileName string, fileContent string) error {
-
 	var funcName string = "WriteFile"
 
 	f, err := GetFile(fileName)
 	if err != nil {
-		return fmt.Errorf("%v.%v: error preparing to write file [%v], [%v]", packageName, funcName, fileName, err)
+		return fmt.Errorf("%v.%v: error preparing to write file [%v], [%v]", packageName, funcName, fileName, err.Error())
 	}
 	defer f.Close()
 
 	_, err = f.Write([]byte(fileContent))
 	if err != nil {
-		return fmt.Errorf("%v.%v: error writing file [%v], [%v]", packageName, funcName, fileName, err)
+		return fmt.Errorf("%v.%v: error writing file [%v], [%v]", packageName, funcName, fileName, err.Error())
 	}
 
 	return nil
 }
 
 func WriteLine(f *os.File, line string) error {
-
 	var funcName string = "WriteLine"
 
 	if _, err := f.Write([]byte(line)); err != nil {
-		return fmt.Errorf("%v.%v: error writing line [%v], [%v]", packageName, funcName, f.Name(), err)
+		return fmt.Errorf("%v.%v: error writing line [%v], [%v]", packageName, funcName, f.Name(), err.Error())
 	}
 
 	return nil
 }
 
 func GetMD5Hash(filePath string) (string, error) {
-
 	var funcName string = "GetMD5Hash"
 
 	file, err := os.Open(filePath)
 	if err != nil {
-		return "", fmt.Errorf("%v.%v: error opening file [%v], [%v]", packageName, funcName, filePath, err)
+		return "", fmt.Errorf("%v.%v: error opening file [%v], [%v]", packageName, funcName, filePath, err.Error())
 	}
 	defer file.Close()
 
-	hash := md5.New() // nolint gosec
+	hash := md5.New() //nolint:gosec
 	_, err = io.Copy(hash, file)
 	if err != nil {
-		return "", fmt.Errorf("%v.%v: error hash file [%v], [%v]", packageName, funcName, filePath, err)
+		return "", fmt.Errorf("%v.%v: error hash file [%v], [%v]", packageName, funcName, filePath, err.Error())
 	}
 
 	return fmt.Sprintf("%x", hash.Sum(nil)), nil
 }
 
 func FileSizeBytes(filePath string) (int64, error) {
-
 	var funcName string = "FileSizeBytes"
 
 	file, err := os.Open(filePath)
 	if err != nil {
-		return 0, fmt.Errorf("%v.%v: error opening file [%v], [%v]", packageName, funcName, filePath, err)
+		return 0, fmt.Errorf("%v.%v: error opening file [%v], [%v]", packageName, funcName, filePath, err.Error())
 	}
 	defer file.Close()
 
 	stat, err := file.Stat()
 	if err != nil {
-		return 0, fmt.Errorf("%v.%v: error getting file info [%v], [%v]", packageName, funcName, filePath, err)
+		return 0, fmt.Errorf("%v.%v: error getting file info [%v], [%v]", packageName, funcName, filePath, err.Error())
 	}
 
 	return stat.Size(), nil
 }
 
 func FileSize(fileName, units string) (string, error) {
-
 	fileBytes, err := FileSizeBytes(fileName)
 	if err != nil {
 		return "", err
@@ -312,18 +299,17 @@ func FileSize(fileName, units string) (string, error) {
 }
 
 func FileHash(fileName string) (string, error) {
-
 	var funcName string = "FileHash"
 
 	f, err := os.Open(fileName)
 	if err != nil {
-		return "", fmt.Errorf("%v.%v: error opening file [%v], [%v]", packageName, funcName, fileName, err)
+		return "", fmt.Errorf("%v.%v: error opening file [%v], [%v]", packageName, funcName, fileName, err.Error())
 	}
 	defer f.Close()
 
 	h := sha256.New()
 	if _, err := io.Copy(h, f); err != nil {
-		return "", fmt.Errorf("%v.%v: error hashing file [%v], [%v]", packageName, funcName, fileName, err)
+		return "", fmt.Errorf("%v.%v: error hashing file [%v], [%v]", packageName, funcName, fileName, err.Error())
 	}
 
 	return fmt.Sprintf("%x", h.Sum(nil)), nil

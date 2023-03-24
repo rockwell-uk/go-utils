@@ -1,4 +1,4 @@
-// nolint:goconst
+//nolint:goconst
 package fileutils
 
 import (
@@ -58,7 +58,6 @@ func TestIsSymlink(t *testing.T) {
 	}
 
 	for name, tt := range tests {
-
 		actual, err := IsSymlink(tt.path)
 
 		if err == nil && tt.shouldError {
@@ -107,7 +106,6 @@ func TestFileExists(t *testing.T) {
 	}
 
 	for name, tt := range tests {
-
 		actual := FileExists(tt.path)
 
 		if tt.expected != actual {
@@ -158,7 +156,6 @@ func TestMkDir(t *testing.T) {
 	}
 
 	for name, tt := range tests {
-
 		mkDirErr := MkDir(tt.path)
 		exists := FileExists(tt.path)
 		cleanupErr := tt.cleanupFn(tt.path)
@@ -193,7 +190,6 @@ func TestFind(t *testing.T) {
 	}
 
 	for name, tt := range tests {
-
 		actual, err := Find(tt.path, tt.extension)
 		if err != nil {
 			t.Fatal(err)
@@ -219,7 +215,6 @@ func TestFolders(t *testing.T) {
 	}
 
 	for name, tt := range tests {
-
 		actual, err := Folders(tt.path)
 		if err != nil {
 			t.Fatal(err)
@@ -232,7 +227,6 @@ func TestFolders(t *testing.T) {
 }
 
 func TestEmptyFolder(t *testing.T) {
-
 	targetFolder := "testdata/testfolder"
 	extension := ".txt"
 
@@ -259,7 +253,6 @@ func TestEmptyFolder(t *testing.T) {
 }
 
 func TestMkFile(t *testing.T) {
-
 	targetFile := "testdata/testfolder/testfile.txt"
 
 	err := MkFile(targetFile)
@@ -311,7 +304,6 @@ func TestFolderIsWriteable(t *testing.T) {
 	}
 
 	for name, tt := range tests {
-
 		actual, err := FolderIsWriteable(tt.path)
 
 		if err == nil && tt.shouldError {
@@ -360,7 +352,6 @@ func TestFileIsWriteable(t *testing.T) {
 	}
 
 	for name, tt := range tests {
-
 		actual := FileIsWriteable(tt.path)
 
 		if tt.expected != actual {
@@ -405,7 +396,6 @@ func TestIsFile(t *testing.T) {
 	}
 
 	for name, tt := range tests {
-
 		actual := IsFile(tt.path)
 
 		if tt.expected != actual {
@@ -450,7 +440,6 @@ func TestIsFolder(t *testing.T) {
 	}
 
 	for name, tt := range tests {
-
 		actual := IsFolder(tt.path)
 
 		if tt.expected != actual {
@@ -479,7 +468,6 @@ func TestFileNameWithoutExtension(t *testing.T) {
 	}
 
 	for name, tt := range tests {
-
 		actual := FileNameWithoutExtension(tt.path)
 
 		if tt.expected != actual {
@@ -489,7 +477,6 @@ func TestFileNameWithoutExtension(t *testing.T) {
 }
 
 func TestGetFile(t *testing.T) {
-
 	targetFile := "testdata/testfolder/testfile.txt"
 	expectType := "*os.File"
 
@@ -511,7 +498,6 @@ func TestGetFile(t *testing.T) {
 }
 
 func TestWriteLine(t *testing.T) {
-
 	targetFile := "testdata/testfolder/testfile.txt"
 	expected := "testline"
 
@@ -543,7 +529,6 @@ func TestWriteLine(t *testing.T) {
 }
 
 func TestGetMD5Hash(t *testing.T) {
-
 	targetFile := "testdata/testfile.txt"
 	expected := "d41d8cd98f00b204e9800998ecf8427e"
 
@@ -558,7 +543,6 @@ func TestGetMD5Hash(t *testing.T) {
 }
 
 func TestFileSizeBytes(t *testing.T) {
-
 	targetFile := "testdata/testfolder/testfile.txt"
 	testline := "testline"
 	expected := int64(8)
@@ -591,7 +575,6 @@ func TestFileSizeBytes(t *testing.T) {
 }
 
 func TestFileHash(t *testing.T) {
-
 	targetFile := "testdata/testfile.txt"
 	expected := "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
@@ -606,7 +589,6 @@ func TestFileHash(t *testing.T) {
 }
 
 func TestWriteFile(t *testing.T) {
-
 	targetFile := "testdata/test_writefile.txt"
 	testContent := "test content"
 

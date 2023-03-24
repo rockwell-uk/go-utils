@@ -11,7 +11,6 @@ import (
 )
 
 func ToSnakeCase(str string) string {
-
 	var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
 	var matchAllCap = regexp.MustCompile("([a-z0-9])([A-Z])")
 
@@ -22,7 +21,6 @@ func ToSnakeCase(str string) string {
 }
 
 func UcFirst(s string) string {
-
 	if len(s) == 0 {
 		return ""
 	}
@@ -34,7 +32,6 @@ func UcFirst(s string) string {
 }
 
 func RandString(n int) string {
-
 	//https://stackoverflow.com/questions/22892120/how-to-generate-a-random-string-of-a-fixed-length-in-go
 	const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 

@@ -11,12 +11,11 @@ import (
 	"time"
 )
 
-// loose defaults
+// loose defaults.
 var ConnectMaxWaitTime = 10 * time.Second
 var RequestMaxWaitTime = 120 * time.Second
 
 func Request(url, verb string, payload io.Reader, timeout *time.Duration) (*http.Response, context.CancelFunc, error) {
-
 	if timeout == nil {
 		timeout = &RequestMaxWaitTime
 	}
@@ -25,7 +24,6 @@ func Request(url, verb string, payload io.Reader, timeout *time.Duration) (*http
 }
 
 func sendWithContext(url, verb string, payload io.Reader, timeout *time.Duration) (*http.Response, context.CancelFunc, error) {
-
 	client := http.Client{
 		Transport: &http.Transport{
 			DialContext: (&net.Dialer{
@@ -45,22 +43,21 @@ func sendWithContext(url, verb string, payload io.Reader, timeout *time.Duration
 
 	var ne net.Error
 	if errors.As(err, &ne) && ne.Timeout() {
-		return nil, cancel, fmt.Errorf("request timeout: %v", err)
+		return nil, cancel, fmt.Errorf("request timeout: %v", err.Error())
 	} else if err != nil {
-		return nil, cancel, fmt.Errorf("request error: %v", err)
+		return nil, cancel, fmt.Errorf("request error: %v", err.Error())
 	}
 
 	return response, cancel, nil
 }
 
 func DownloadFileToPath(url, filePath string) error {
-
 	var funcName string = "DownloadFileToPath"
 
 	// Create the file
 	out, err := os.Create(filePath)
 	if err != nil {
-		return fmt.Errorf("%v.%v: error creating file [%v], [%v]", packageName, funcName, filePath, err)
+		return fmt.Errorf("%v.%v: error creating file [%v], [%v]", packageName, funcName, filePath, err.Error())
 	}
 	defer out.Close()
 
@@ -68,7 +65,7 @@ func DownloadFileToPath(url, filePath string) error {
 	resp, cancel, err := Request(url, http.MethodGet, nil, nil)
 	defer cancel()
 	if err != nil {
-		return fmt.Errorf("%v.%v: error downloading file [%v], [%v]", packageName, funcName, url, err)
+		return fmt.Errorf("%v.%v: error downloading file [%v], [%v]", packageName, funcName, url, err.Error())
 	}
 	defer resp.Body.Close()
 
@@ -80,7 +77,7 @@ func DownloadFileToPath(url, filePath string) error {
 	// Write the body to file
 	_, err = io.Copy(out, resp.Body)
 	if err != nil {
-		return fmt.Errorf("%v.%v: error writing file [%v], [%v]", packageName, funcName, filePath, err)
+		return fmt.Errorf("%v.%v: error writing file [%v], [%v]", packageName, funcName, filePath, err.Error())
 	}
 
 	return nil

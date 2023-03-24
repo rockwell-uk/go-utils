@@ -7,7 +7,6 @@ import (
 )
 
 func TestRound(t *testing.T) {
-
 	tests := map[string]struct {
 		Duration    time.Duration
 		Expected    map[int]string
@@ -56,7 +55,6 @@ func TestRound(t *testing.T) {
 	}
 
 	for name, test := range tests {
-
 		for digits := 0; digits <= 3; digits++ {
 			actual := fmt.Sprintf("%v", Round(test.Duration, digits))
 
@@ -74,7 +72,6 @@ func TestRound(t *testing.T) {
 }
 
 func TestFormatDuration(t *testing.T) {
-
 	tests := map[string]struct {
 		Duration    time.Duration
 		Digits      int
@@ -102,7 +99,6 @@ func TestFormatDuration(t *testing.T) {
 	}
 
 	for name, test := range tests {
-
 		actual := FormatDuration(test.Duration, 2)
 
 		if test.Expected != actual {
@@ -118,7 +114,6 @@ func TestFormatDuration(t *testing.T) {
 }
 
 func TestFormatTime(t *testing.T) {
-
 	tests := map[string]struct {
 		Time        string
 		Digits      int
@@ -136,7 +131,7 @@ func TestFormatTime(t *testing.T) {
 	for name, test := range tests {
 		pt, err := time.Parse(time.RFC3339, test.Time)
 		if err != nil {
-			fmt.Println(err)
+			t.Fatal(err)
 		}
 
 		actual := FormatTime(pt)

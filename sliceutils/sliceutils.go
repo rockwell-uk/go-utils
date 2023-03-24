@@ -6,7 +6,6 @@ import (
 )
 
 func SortStringSliceByKey(in []string) []string {
-
 	keys := make([]string, 0, len(in))
 	keys = append(keys, in...)
 
@@ -16,7 +15,6 @@ func SortStringSliceByKey(in []string) []string {
 }
 
 func SortIntSliceByKey(in []int) []int {
-
 	keys := make([]int, 0, len(in))
 	keys = append(keys, in...)
 
@@ -26,7 +24,6 @@ func SortIntSliceByKey(in []int) []int {
 }
 
 func ContainsString(s []string, e string) bool {
-
 	for _, a := range s {
 		if a == e {
 			return true
@@ -37,7 +34,6 @@ func ContainsString(s []string, e string) bool {
 }
 
 func ContainsInt(s []int, e int) bool {
-
 	for _, a := range s {
 		if a == e {
 			return true
@@ -48,7 +44,6 @@ func ContainsInt(s []int, e int) bool {
 }
 
 func TabList(items []string) string {
-
 	var list string
 
 	// Sort the list
@@ -66,7 +61,6 @@ func TabList(items []string) string {
 }
 
 func MinInt(s []int) int {
-
 	if len(s) == 0 {
 		return 0
 	}
@@ -83,7 +77,6 @@ func MinInt(s []int) int {
 }
 
 func MaxInt(s []int) int {
-
 	if len(s) == 0 {
 		return 0
 	}
@@ -100,7 +93,6 @@ func MaxInt(s []int) int {
 }
 
 func SumInt(s []int) int {
-
 	var r int
 
 	for _, a := range s {

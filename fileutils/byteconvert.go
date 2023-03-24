@@ -1,7 +1,6 @@
 package fileutils
 
 func ByteSizeConvert(fileBytes int64, units string) float64 {
-
 	var oneMb float64 = 1024
 
 	var bytes float64 = float64(fileBytes)
@@ -39,7 +38,6 @@ func ByteSizeConvert(fileBytes int64, units string) float64 {
 
 	case "zb":
 		return exabytes / oneMb
-
 	}
 
 	return bytes

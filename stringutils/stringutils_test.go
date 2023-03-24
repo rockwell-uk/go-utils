@@ -5,7 +5,6 @@ import (
 )
 
 func TestUcFirst(t *testing.T) {
-
 	tests := map[string]string{
 		"":    "",
 		" ":   " ",
@@ -15,7 +14,6 @@ func TestUcFirst(t *testing.T) {
 	}
 
 	for subject, expected := range tests {
-
 		actual := UcFirst(subject)
 
 		if expected != actual {
@@ -25,7 +23,6 @@ func TestUcFirst(t *testing.T) {
 }
 
 func TestToSnakeCase(t *testing.T) {
-
 	tests := map[string]string{
 		"":        "",
 		" ":       " ",
@@ -34,7 +31,6 @@ func TestToSnakeCase(t *testing.T) {
 	}
 
 	for subject, expected := range tests {
-
 		actual := ToSnakeCase(subject)
 
 		if expected != actual {
@@ -63,6 +59,7 @@ func TestSpacePad(t *testing.T) {
 			paddedRight: "banana",
 		},
 	}
+
 	for _, tt := range tests {
 		pl := SpacePadLeft(tt.strToPad, tt.length)
 		if tt.paddedLeft != pl {

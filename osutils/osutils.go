@@ -43,7 +43,6 @@ func OSIsUnix() bool {
 }
 
 func RunCommand(command string, args ...string) (string, string, error) {
-
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 
@@ -58,7 +57,6 @@ func RunCommand(command string, args ...string) (string, string, error) {
 }
 
 func RunCommandSilent(command string, args ...string) (string, string, error) {
-
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 
@@ -73,7 +71,6 @@ func RunCommandSilent(command string, args ...string) (string, string, error) {
 }
 
 func RunShellCommand(shell string, command string) (string, string, error) {
-
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 
@@ -88,7 +85,6 @@ func RunShellCommand(shell string, command string) (string, string, error) {
 }
 
 func RunShellCommandSilent(shell string, command string) (string, string, error) {
-
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 
@@ -103,14 +99,12 @@ func RunShellCommandSilent(shell string, command string) (string, string, error)
 }
 
 func CommandExists(cmd string) bool {
-
 	_, err := exec.LookPath(cmd)
 
 	return err == nil
 }
 
 func GetULimit() (int, error) {
-
 	if !OSIsUnix() {
 		// @TODO figure out what to do on non unix
 		return 0, nil

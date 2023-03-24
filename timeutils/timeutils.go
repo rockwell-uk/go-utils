@@ -13,7 +13,6 @@ var divs = []time.Duration{
 }
 
 func Round(d time.Duration, digits int) time.Duration {
-
 	switch {
 	case d > time.Second:
 		d = d.Round(time.Second / divs[digits])
@@ -27,7 +26,6 @@ func Round(d time.Duration, digits int) time.Duration {
 }
 
 func FormatDuration(d time.Duration, digits int) string {
-
 	s := float64(d.Milliseconds()) / 1000
 
 	ph := "%."
@@ -41,7 +39,6 @@ func FormatTime(d time.Time) string {
 }
 
 func Took(start time.Time) time.Duration {
-
 	var duration time.Duration = time.Since(start)
 
 	return Round(duration, 2)
